@@ -11,7 +11,7 @@ export const Header = () => {
     <header>
       <div className="container header__container">
         <h5>Hello I'm</h5>
-        <h1>Djeutio Anderson</h1>
+        <h1 className="bg-txt">Djeutio Anderson</h1>
         <h5 className="text-light">Passionate Software Engineer</h5>
         <CTA />
         <HeaderSocial />
