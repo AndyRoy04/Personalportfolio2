@@ -1,49 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./portfolio.css";
-import img1 from "../../assets/img1.png";
-import img2 from "../../assets/img2.png";
-import img3 from "../../assets/img3.png";
+import axios from "axios";
 
 export const Portfolio = () => {
-  const portfolioContent = [
-    {
-      image : img1,
-      github: 'https://github.com/AndyRoy04',
-      demo: '#',
-      id: 1,
-      title:'Project 1'
-    },
-    {
-      image : img2,
-      github: 'https://github.com/AndyRoy04',
-      demo: '#',
-      id: 2,
-      title:'Project 2'
-    },
-    {
-      image : img3,
-      github: 'https://github.com/AndyRoy04',
-      demo: '#',
-      id: 4,
-      title:'Project 4'
-    },
-  ]
+  const [data, setData] = useState([]);
+  useEffect (()=>{
+    axios.get("http://localhost:8000/api/portfolio")
+    .then(resp => {
+      const formattedData = resp.data.data.map(item =>({
+        id:item._id,
+        image: item.image,
+        title: item.title,
+        github: item.github,
+        demo: item.demo
+      }));
+      setData(formattedData)
+    })
+    .catch(error =>{
+      console.log('Error fetching Portfolio Data', error);
+    })
+  },[])
   return (
     <section id="portfolio">
       <h5>My recent work</h5>
-      <h2 className="header_two">Projects</h2>
+      <h2 className="header_two">Portfolio</h2>
       <div className="container portfolio__container">
       {
-        portfolioContent.map((content, id) =>{
-          return (
+        data.map(({id, image, title, github, demo}) => (
             <article key={id} className="portfolio__item">
               <div className="portfolio__item__image">
-                <img src={content.image} alt=" one" className="portImage" />
+                <img src={image} alt=" one" className="portImage" />
               </div>
-              <h3> {content.title} </h3>
+              <h3> {title} </h3>
               <div className="portfolio__item__cta">
                 <a
-                  href={content.github}
+                  href={github}
                   className="btn"
                   target="_blank"
                   rel="noreferrer"
@@ -51,7 +42,7 @@ export const Portfolio = () => {
                   Github
                 </a>
                 <a
-                  href={content.demo}
+                  href={demo}
                   className="btn btn-primary"
                   target="blank"
                   rel="noreferrer"
@@ -60,10 +51,7 @@ export const Portfolio = () => {
                 </a>
               </div>
             </article>
-          );
-        }
-        
-        )
+          ))
       }
       </div>
     </section>

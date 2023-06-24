@@ -24,7 +24,7 @@ export const Testimonial = () => {
       setData(formattedData)
     })
     .catch(error =>{
-      console.log('Error fetching Data', error);
+      console.log('Error fetching Testimonial Data ', error);
     })
   },[])
   return (
