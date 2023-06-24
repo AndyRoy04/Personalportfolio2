@@ -5,7 +5,7 @@ import axios from "axios";
 export const Portfolio = () => {
   const [data, setData] = useState([]);
   useEffect (()=>{
-    axios.get("http://localhost:8000/api/portfolio")
+    axios.get("https://portfolio-backend.cyclic.app/api/portfolio")
     .then(resp => {
       const formattedData = resp.data.data.map(item =>({
         id:item._id,

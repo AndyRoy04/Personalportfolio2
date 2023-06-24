@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 export const Testimonial = () => {
   const [data, setData] = useState([]);
   useEffect (()=>{
-    axios.get("http://localhost:8000/api/testimonial")
+    axios.get("https://portfolio-backend.cyclic.app/api/testimonial")
     .then(resp => {
       const formattedData = resp.data.data.map(item =>({
         id:item._id,
